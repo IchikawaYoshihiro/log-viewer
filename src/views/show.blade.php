@@ -1,8 +1,9 @@
 @extends('logviewer::layout')
 
-@section('title', 'Show')
+@section('title', __('logviewer::message.show'))
 
 @section('content')
+<p><a href="{{ route('logviewer::index') }}">{{ __('logviewer::message.back_to_top') }}</a></p>
 	<ul>
 	@forelse ($logs as $log)
 		<li>
@@ -14,7 +15,7 @@
 			<span>{{ $log->message }}</span>
 		</li>
 	@empty
-		<li>{{ __('logviewer::no_contents') }}</li>
+		<li>{{ __('logviewer::message.no_logs') }}</li>
 	@endforelse
 	</ul>
 @endsection

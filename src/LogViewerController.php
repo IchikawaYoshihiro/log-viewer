@@ -13,11 +13,15 @@ class LogViewerController extends BaseController
 		return view('logviewer::index', compact('files'));
 	}
 
-	public function show(Request $request, $date_str)
+	public function show(Request $request, $filename)
 	{
-		$path = static::getLogFilePath($date_str);
-		$logs = static::analyzeLogFile($path);
+		$path = static::getLogFilePath($filename);
 
+		if (!$path) {
+			return redirect()->route('logviewer::index');
+		}
+
+		$logs = static::analyzeLogFile($path);
 		return view('logviewer::show', compact('logs'));
 	}
 
@@ -28,9 +32,9 @@ class LogViewerController extends BaseController
 		return array_map('basename', glob(storage_path('logs/*.log')));
 	}
 
-	private static function getLogFilePath($date_str)
+	private static function getLogFilePath($filename)
 	{
-		$file = array_map('realpath', glob(storage_path("logs/{$date_str}")));
+		$file = array_map('realpath', glob(storage_path("logs/{$filename}")));
 		return array_shift($file);
 	}
 

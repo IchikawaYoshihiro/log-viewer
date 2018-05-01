@@ -15,6 +15,7 @@ class LogViewerServiceProvider extends ServiceProvider
 	{
 		$this->loadRoutesFrom(__DIR__.'/routes.php');
 		$this->loadViewsFrom(__DIR__.'/views', 'logviewer');
+		$this->loadTranslationsFrom(__DIR__.'/lang', 'logviewer');
 	}
 
 	/**
