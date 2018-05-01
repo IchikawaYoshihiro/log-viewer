@@ -28,7 +28,6 @@
 
 @section('script')
 <script>
-	console.time('cache text')
 	$(function() {
 		const $list = $('#search-target li')
 		// cache for text search
@@ -36,7 +35,6 @@
 		const hideClassName = 'hide'
 
 		const filterContentWithCache = function (word) {
-			console.time('searching')
 			cache.forEach((text, index) => {
 				const classList = $list[index].classList
 				if (text.includes(word)) {
@@ -45,14 +43,12 @@
 					!classList.contains(hideClassName) && classList.add(hideClassName)
 				}
 			})
-			console.timeEnd('searching')
 		}
 
 		const $search = $('#search')
 		$search.on('input', function() {
 			filterContentWithCache(this.value)
 		})
-		console.timeEnd('cache text')
 	})
 </script>
 @endsection
