@@ -28,25 +28,31 @@
 
 @section('script')
 <script>
+	console.time('cache text')
 	$(function() {
 		const $list = $('#search-target li')
-		const $search = $('#search')
-
 		// cache for text search
 		const cache = $list.toArray().map(n => n.innerText)
-		const filterContent = function (word) {
+		const hideClassName = 'hide'
+
+		const filterContentWithCache = function (word) {
+			console.time('searching')
 			cache.forEach((text, index) => {
+				const classList = $list[index].classList
 				if (text.includes(word)) {
-					$list[index].classList.remove('hide')
+					classList.contains(hideClassName) && classList.remove(hideClassName)
 				} else {
-					$list[index].classList.add('hide')
+					!classList.contains(hideClassName) && classList.add(hideClassName)
 				}
 			})
+			console.timeEnd('searching')
 		}
 
+		const $search = $('#search')
 		$search.on('input', function() {
-			filterContent(this.value)
+			filterContentWithCache(this.value)
 		})
+		console.timeEnd('cache text')
 	})
 </script>
 @endsection
