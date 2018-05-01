@@ -13,6 +13,7 @@ class LogViewerController extends BaseController
 		return view('logviewer::index', compact('files'));
 	}
 
+
 	public function show(Request $request, $filename)
 	{
 		$path = static::getLogFilePath($filename);
@@ -26,20 +27,32 @@ class LogViewerController extends BaseController
 	}
 
 
-
+	/**
+	 * get list of the log file name
+	 * @return array filename list
+	 */
 	private static function getLogFileList()
 	{
 		return array_map('basename', glob(storage_path('logs/*.log')));
 	}
 
+
+	/**
+	 * get log file path from filename
+	 * @param string $filename
+	 * @return string|null full file path
+	 */
 	private static function getLogFilePath($filename)
 	{
 		$file = array_map('realpath', glob(storage_path("logs/{$filename}")));
 		return array_shift($file);
 	}
 
+
 	/**
-	 * ログ1件ごとに分割する（複数行対応）
+	 * explode log contents
+	 * @param string $path path to log file
+	 * @return array
 	 */
 	private static function analyzeLogFile($path)
 	{
@@ -66,6 +79,10 @@ class LogViewerController extends BaseController
 	}
 
 
+	/**
+	 * text contain datetime string
+	 * @return bool
+	 */
 	private static function isNextLine($str)
 	{
 		return preg_match('/^\[\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}\]/', $str);
