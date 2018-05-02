@@ -3,20 +3,20 @@
 @section('title', __('logviewer::message.show'))
 
 @section('content')
-<a href="{{ route('logviewer::index') }}" class="mr-2">{{ __('logviewer::message.back_to_top') }}</a>
+<a href="{{ route('logviewer::index') }}" class="btn btn-primary">{{ __('logviewer::message.back_to_top') }}</a>
 <div class="form-inline float-right">
 	<input type="text" id="search" class="form-control" placeholder="filter">
 </div>
 <hr>
-<ul id="search-target">
+<ul id="search-list">
 @forelse ($logs as $log)
 	<li>
 		<small>
-			<span>[{{ $log->date }}]</span>
+			[{{ $log->date }}]
 			<span class="badge badge-{{ $log->envClass() }}">{{ $log->env }}</span>
 			<span class="badge badge-{{ $log->levelClass() }}">{{ $log->level }}</span>
 		</small>
-		<span>{{ $log->message }}</span>
+		{{ $log->message }}
 	</li>
 @empty
 	<li>{{ __('logviewer::message.no_logs') }}</li>
@@ -29,7 +29,7 @@
 @section('script')
 <script>
 	$(function() {
-		const $list = $('#search-target li')
+		const $list = $('#search-list li')
 		// cache for text search
 		const cache = $list.toArray().map(n => n.innerText)
 		const hideClassName = 'hide'
@@ -38,9 +38,14 @@
 			cache.forEach((text, index) => {
 				const classList = $list[index].classList
 				if (text.includes(word)) {
-					classList.contains(hideClassName) && classList.remove(hideClassName)
-				} else {
-					!classList.contains(hideClassName) && classList.add(hideClassName)
+					if (classList.contains(hideClassName)) {
+						classList.remove(hideClassName)
+					}
+				}
+				else {
+					if (!classList.contains(hideClassName)) {
+						classList.add(hideClassName)
+					}
 				}
 			})
 		}
