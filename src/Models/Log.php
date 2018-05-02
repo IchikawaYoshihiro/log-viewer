@@ -1,6 +1,6 @@
 <?php
 
-namespace Ichikawayac\LogViewer;
+namespace Ichikawayac\LogViewer\Models;
 
 class Log
 {

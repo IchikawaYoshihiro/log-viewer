@@ -1,13 +1,19 @@
 <?php
 
-namespace Ichikawayac\LogViewer;
+namespace Ichikawayac\LogViewer\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Ichikawayac\LogViewer\Models\Log;
 
 class LogViewerController extends BaseController
 {
-	public function index()
+    public function __construct()
+    {
+        $this->middleware(config('logviewer.middleware', []));
+    }
+
+    public function index()
 	{
 		$files = static::getLogFileList();
 		return view('logviewer::index', compact('files'));
