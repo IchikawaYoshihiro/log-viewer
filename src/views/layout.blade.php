@@ -14,17 +14,13 @@
 		li:hover {
 			background-color: #eee;
 		}
-		.hide {
-			display: none;
-		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<h2>@yield('title')</h2>
+		<h2 class="my-4">@yield('title')</h2>
 		@yield('content')
 	</div>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	@yield('script')
 </body>
 </html>

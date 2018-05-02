@@ -1,6 +1,6 @@
 @extends('logviewer::layout')
 
-@section('title', __('logviewer::message.show'))
+@section('title', __('logviewer::message.show', ['filename' => $filename]))
 
 @section('content')
 <a href="{{ route('logviewer::index') }}" class="btn btn-primary">{{ __('logviewer::message.back_to_top') }}</a>
@@ -13,8 +13,8 @@
 	<li>
 		<small>
 			[{{ $log->date }}]
-			<span class="badge badge-{{ $log->envClass() }}">{{ $log->env }}</span>
-			<span class="badge badge-{{ $log->levelClass() }}">{{ $log->level }}</span>
+			<span class="badge badge-env badge-{{ $log->envClass() }}">{{ $log->env }}</span>
+			<span class="badge badge-level badge-{{ $log->levelClass() }}">{{ $log->level }}</span>
 		</small>
 		{{ $log->message }}
 	</li>
@@ -28,32 +28,29 @@
 
 @section('script')
 <script>
-	$(function() {
-		const $list = $('#search-list li')
-		// cache for text search
-		const cache = $list.toArray().map(n => n.innerText)
-		const hideClassName = 'hide'
+	const list = [...document.querySelectorAll('#search-list li')]
+	const cache = list.map(n => n.innerText)
+	const hideClassName = 'd-none'
 
-		const filterContentWithCache = function (word) {
-			cache.forEach((text, index) => {
-				const classList = $list[index].classList
-				if (text.includes(word)) {
-					if (classList.contains(hideClassName)) {
-						classList.remove(hideClassName)
-					}
+	const filterContentWithCache = function (word) {
+		cache.forEach((text, index) => {
+			const classList = list[index].classList
+			if (text.includes(word)) {
+				if (classList.contains(hideClassName)) {
+					classList.remove(hideClassName)
 				}
-				else {
-					if (!classList.contains(hideClassName)) {
-						classList.add(hideClassName)
-					}
+			}
+			else {
+				if (!classList.contains(hideClassName)) {
+					classList.add(hideClassName)
 				}
-			})
-		}
-
-		const $search = $('#search')
-		$search.on('input', function() {
-			filterContentWithCache(this.value)
+			}
 		})
+	}
+
+	const search = document.querySelector('#search')
+	search.addEventListener('input', function(){
+		filterContentWithCache(this.value)
 	})
 </script>
 @endsection

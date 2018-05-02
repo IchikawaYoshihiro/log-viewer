@@ -23,7 +23,7 @@ class LogViewerController extends BaseController
 		}
 
 		$logs = static::analyzeLogFile($path);
-		return view('logviewer::show', compact('logs'));
+		return view('logviewer::show', compact('logs', 'filename'));
 	}
 
 
