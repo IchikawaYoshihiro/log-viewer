@@ -1,6 +1,8 @@
 {
     "name": "ichikawa-y-ac/log-viewer",
     "description": "Laravel log viewer",
+    "type": "Library",
+    "keywords": ["laravel", "bootstrap", "log", "logviewer"],
     "authors": [
         {
             "name": "Ichikawa Yoshihiro",
