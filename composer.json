@@ -1,27 +1,30 @@
 {
-	"name": "ichikawa-y-ac/log-viewer",
-	"description": "Laravel log viewer",
-	"authors": [
-		{
-			"name": "Ichikawa Yoshihiro",
-			"email": "ichikawa.y.ac@gmail.com"
-		}
-	],
-	"require": {
-		"php": "^7.0",
-		"laravel/framework": "5.6.*"
-	},
-	"autoload": {
-		"files": [],
-		"psr-4": {
-			"Ichikawayac\\LogViewer\\": "src/"
-		}
-	},
-	"extra": {
-		"laravel": {
-			"providers": [
-				"Ichikawayac\\LogViewer\\LogViewerServiceProvider"
-			]
-		}
-	}
+    "name": "ichikawa-y-ac/log-viewer",
+    "description": "Laravel log viewer",
+    "type": "Library",
+    "keywords": ["laravel", "bootstrap", "log", "logviewer"],
+    "authors": [
+        {
+            "name": "Ichikawa Yoshihiro",
+            "email": "ichikawa.y.ac@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.0",
+        "laravel/framework": "5.6.*"
+    },
+    "autoload": {
+        "files": [],
+        "psr-4": {
+            "Ichikawayac\\LogViewer\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ichikawayac\\LogViewer\\LogViewerServiceProvider"
+            ]
+        }
+    }
 }
